@@ -61,8 +61,6 @@ object Main extends App {
 
     val config = ConfigFactory.parseString("akka.loglevel = DEBUG")
     implicit val system = ActorSystem(app, config)
-    //implicit val ec = system.dispatcher
-    //implicit val materializer = ActorMaterializer()
 
     val bufSize = 256
     val (bfSink, bfSource) = MergeHub
@@ -155,7 +153,6 @@ object Main extends App {
             case ((c, _), _, 301) =>
               port = port * 256 + c
               next()
-              // println(s"HOST=$host PORT=$port")
               Some(new InetSocketAddress(host, port))
 
             // case _ => List.empty
@@ -178,7 +175,6 @@ object Main extends App {
             acc = (acc._1 + p._1, acc._2 + p._2)
             MonitorRecord(id, incomingConnection.remoteAddress, futAdr, p, acc)
         }
-        // .toMat( BroadcastHub.sink(bufSize) )(Keep.right).run()
         .runWith(bfSink)
 
       val counterBidiFlow = BidiFlow.fromFlows(
@@ -259,4 +255,4 @@ object Main extends App {
   }
 
   println(s"END\t$app")
-}
+/}
