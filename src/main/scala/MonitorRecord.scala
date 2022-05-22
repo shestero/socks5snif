@@ -17,7 +17,7 @@ case class MonitorRecord(
                       )
 {
   val timeout = 250 milliseconds
-  
+
   val tstamp = Calendar.getInstance().getTime
   val fmt = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
   def datetime = fmt.format(tstamp)
